@@ -1,7 +1,7 @@
 package com.example.testtask.controller;
 
-import com.example.testtask.model.Interval;
-import com.example.testtask.service.DigitsIntervalService;
+import com.example.testtask.dto.Interval;
+import com.example.testtask.service.IntervalService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,21 +9,26 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/intervals")
 public class TestTaskController {
-    private DigitsIntervalService digitsIntervalService;
+    private final IntervalService<Integer> digitIntervalService;
+    private final IntervalService<Character> characterIntervalService;
 
-    public TestTaskController(DigitsIntervalService digitsIntervalService) {
-        this.digitsIntervalService = digitsIntervalService;
+    public TestTaskController(IntervalService<Integer> intervalService, IntervalService<Character> characterIntervalService) {
+        this.digitIntervalService = intervalService;
+        this.characterIntervalService = characterIntervalService;
     }
 
     @GetMapping("/min")
     public Interval getMinInterval(@RequestParam(value = "kind", defaultValue = "digits")
                                              String kind) {
-        return new Interval(1, 2);
+        //todo
+        return null;
     }
 
-    @PostMapping("merge")
-    public void mergeIntervals(@RequestBody List<Interval> intervals) {
-        //todo
+    //todo
+    @PostMapping("/merge")
+    public void mergeIntervals(@RequestParam(value = "kind", defaultValue = "digits")
+                                   String kind, @RequestBody List<Interval<Integer>> intervals) {
+        digitIntervalService.saveInterval(intervals);
     }
 
 }
