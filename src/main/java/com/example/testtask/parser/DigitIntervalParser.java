@@ -19,8 +19,6 @@ public class DigitIntervalParser {
 
 
     public List<DigitInterval> parseIntervals(String body) {
-        if (body.isEmpty())
-            throw new EmptyBodyException();
         Gson gson = new Gson();
         Type listOfIntervalsType = new TypeToken<ArrayList<ArrayList<Integer>>>() {}.getType();
         ArrayList<ArrayList<Integer>> intervalsList = gson.fromJson(body, listOfIntervalsType);
