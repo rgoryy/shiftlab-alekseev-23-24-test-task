@@ -1,7 +1,8 @@
 package com.example.testtask.parser;
 
 import com.example.testtask.entity.CharInterval;
-import com.example.testtask.exception.WrongArrayListLengthException;
+import com.example.testtask.exception.NotLetterException;
+import com.example.testtask.exception.WrongArrayListElementLengthException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -18,10 +19,23 @@ public class CharIntervalParser {
 
         List<CharInterval> intervals = new ArrayList<>();
         for (ArrayList<Character> interval : intervalsList) {
-            if (interval.size() == 2)
-                intervals.add(new CharInterval(interval));
+            if (interval.size() == 2) {
+                if (Character.isLetter(interval.get(0)) && Character.isLetter(interval.get(1)))
+                    intervals.add(new CharInterval(interval));
+                else
+                    throw new NotLetterException();
+            }
             else
-                throw new WrongArrayListLengthException();
+                throw new WrongArrayListElementLengthException();
+
+            boolean isValid = true;
+            for (Character character : interval) {
+                if (!Character.isLetter(character) || !Character.isLowerCase(character)) {
+                    isValid = false;
+                    break;
+                }
+            }
+
         }
         return intervals;
     }

@@ -1,11 +1,10 @@
 package com.example.testtask.controller.exceptionhandler;
 
-import com.example.testtask.exception.EndGreaterThanStartException;
-import com.example.testtask.exception.WrongArrayListLengthException;
-import com.example.testtask.exception.WrongKindValueException;
+import com.example.testtask.exception.*;
 import com.google.gson.JsonSyntaxException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -18,8 +17,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(WrongArrayListLengthException.class)
-    public ResponseEntity<String> handleWrongArrayListLengthException(WrongArrayListLengthException e) {
+    @ExceptionHandler(WrongArrayListElementLengthException.class)
+    public ResponseEntity<String> handleWrongArrayListLengthElementException(WrongArrayListElementLengthException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
@@ -35,6 +34,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<String> handleNoSuchElementException(NoSuchElementException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+    }
+
+    @ExceptionHandler(NotLetterException.class)
+    public ResponseEntity<String> handleNotLetterException(NotLetterException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<String> handleEmptyBodyException(HttpMessageNotReadableException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
     }
 }

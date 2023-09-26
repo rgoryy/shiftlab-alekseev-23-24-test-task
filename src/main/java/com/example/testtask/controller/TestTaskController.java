@@ -43,7 +43,8 @@ public class TestTaskController {
                 return new ResponseEntity<>("[]", HttpStatus.OK);
             CharIntervalParser charIntervalParser = new CharIntervalParser();
             response = charIntervalParser.parseFromInterval((CharInterval) resInterval.get());
-        } else throw new WrongKindValueException();
+        } else
+            throw new WrongKindValueException();
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -52,7 +53,6 @@ public class TestTaskController {
     @PostMapping("/merge")
     public ResponseEntity<?> mergeIntervals(@RequestParam(value = "kind", defaultValue = "digits")
                                             String kind, @RequestBody String body) {
-
         if (kind.equals("digits")) {
             DigitIntervalParser digitIntervalParser = new DigitIntervalParser();
             List<DigitInterval> intervals = digitIntervalParser.parseIntervals(body);

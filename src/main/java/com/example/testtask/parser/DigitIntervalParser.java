@@ -1,7 +1,7 @@
 package com.example.testtask.parser;
 
 import com.example.testtask.entity.DigitInterval;
-import com.example.testtask.exception.WrongArrayListLengthException;
+import com.example.testtask.exception.WrongArrayListElementLengthException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -19,16 +19,18 @@ public class DigitIntervalParser {
 
 
     public List<DigitInterval> parseIntervals(String body) {
+        if (body.isEmpty())
+            throw new EmptyBodyException();
         Gson gson = new Gson();
         Type listOfIntervalsType = new TypeToken<ArrayList<ArrayList<Integer>>>() {}.getType();
         ArrayList<ArrayList<Integer>> intervalsList = gson.fromJson(body, listOfIntervalsType);
-
         List<DigitInterval> intervals = new ArrayList<>();
         for (ArrayList<Integer> interval : intervalsList) {
-            if (interval.size() == 2)
+            if (interval.size() == 2) {
                 intervals.add(new DigitInterval(interval));
+            }
             else
-                throw new WrongArrayListLengthException();
+                throw new WrongArrayListElementLengthException();
         }
         return intervals;
     }
