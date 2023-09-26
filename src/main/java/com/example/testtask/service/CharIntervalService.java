@@ -19,13 +19,12 @@ public class CharIntervalService implements IntervalService<Character, CharInter
     }
 
     @Override
-    public CharInterval getMinInterval() {
-        Optional<CharInterval> minInterval = charIntervalRepository.findMinInterval().stream().findFirst();
-        return minInterval.orElse(null);
+    public Optional<CharInterval> getMinInterval() {
+        return charIntervalRepository.findMinInterval();
     }
 
     @Override
-    public void saveInterval(List<CharInterval> intervals) {
+    public void saveIntervals(List<CharInterval> intervals) {
         if (intervals.isEmpty()) {
             return;
         }

@@ -18,13 +18,12 @@ public class DigitIntervalService implements IntervalService<Integer, DigitInter
     }
 
     @Override
-    public DigitInterval getMinInterval() {
-        Optional<DigitInterval> minInterval = digitIntervalRepository.findMinInterval().stream().findFirst();
-        return minInterval.orElse(null);
+    public Optional<DigitInterval> getMinInterval() {
+        return digitIntervalRepository.findMinInterval();
     }
 
     @Override
-    public void saveInterval(List<DigitInterval> intervals) {
+    public void saveIntervals(List<DigitInterval> intervals) {
         if (intervals.isEmpty()) {
             return;
         }
@@ -36,20 +35,21 @@ public class DigitIntervalService implements IntervalService<Integer, DigitInter
     public List<DigitInterval> mergeIntervals(List<DigitInterval> intervals) {
         List<DigitInterval> mergedIntervals = new ArrayList<>();
         sortIntervalsByStartValue(intervals);
+        for (DigitInterval i: intervals) {
+            System.out.println(i);
+        }
         int start = intervals.get(0).getStartI();
         int end = intervals.get(0).getEndI();
-        int index = 1;
-        while (index < intervals.size()) {
-            int currentStart = intervals.get(index).getStartI();
-            int currentEnd = intervals.get(index).getEndI();
-            if (currentStart < end && currentEnd > end) {
+        for (int i = 1; i < intervals.size(); i++) {
+            int currentStart = intervals.get(i).getStartI();
+            int currentEnd = intervals.get(i).getEndI();
+            if (currentStart <= end) {
                 end = currentEnd;
             } else {
                 mergedIntervals.add(new DigitInterval(start, end));
                 start = currentStart;
                 end = currentEnd;
             }
-            index++;
         }
         mergedIntervals.add(new DigitInterval(start, end));
         return mergedIntervals;

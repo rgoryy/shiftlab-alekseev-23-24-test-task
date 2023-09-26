@@ -19,8 +19,10 @@ public class DigitInterval extends AbstractIntervalEntity<Integer> {
     private Integer endI;
 
     public DigitInterval(List<Integer> rawIntervals) {
-        this.startI = rawIntervals.get(0);
-        this.endI = rawIntervals.get(1);
+        if (rawIntervals.get(0) <= rawIntervals.get(1)) {
+            this.startI = rawIntervals.get(0);
+            this.endI = rawIntervals.get(1);
+        } else throw new IllegalArgumentException("Invalid arguments");
     }
 
     @Override

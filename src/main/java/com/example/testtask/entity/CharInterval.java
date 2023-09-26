@@ -1,5 +1,6 @@
 package com.example.testtask.entity;
 
+import com.example.testtask.exception.EndGreaterThanStartException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
@@ -18,18 +19,27 @@ public class CharInterval extends AbstractIntervalEntity<Character> {
     private Character endI;
 
     public CharInterval(ArrayList<Character> rawIntervals) {
-        this.startI = rawIntervals.get(0);
-        this.endI = rawIntervals.get(1);
+        if (rawIntervals.get(0) <= rawIntervals.get(1)) {
+            this.startI = rawIntervals.get(0);
+            this.endI = rawIntervals.get(1);
+        } else throw new
+                EndGreaterThanStartException();
     }
 
     @Override
     public void setEndI(Character endI) {
-        this.endI = endI;
+        if (startI <= endI)
+            this.endI = endI;
+        else throw new
+                EndGreaterThanStartException();
     }
 
     @Override
     public void setStartI(Character startI) {
-        this.startI = startI;
+        if (startI <= endI)
+            this.startI = startI;
+        else throw new
+                EndGreaterThanStartException();
     }
 
     @Override
