@@ -1,6 +1,7 @@
 package com.example.testtask.service;
 
 import com.example.testtask.entity.CharInterval;
+import com.example.testtask.entity.DigitInterval;
 import com.example.testtask.repository.CharIntervalRepository;
 import org.springframework.stereotype.Service;
 
@@ -38,18 +39,16 @@ public class CharIntervalService implements IntervalService<Character, CharInter
         sortIntervalsByStartValue(intervals);
         char start = intervals.get(0).getStartI();
         char end = intervals.get(0).getEndI();
-        int index = 1;
-        while (index < intervals.size()) {
-            char currentStart = intervals.get(index).getStartI();
-            char currentEnd = intervals.get(index).getEndI();
-            if (currentStart < end && currentEnd > end) {
-                end = currentEnd;
+        for (int i = 1; i < intervals.size(); i++) {
+            char currentStart = intervals.get(i).getStartI();
+            char currentEnd = intervals.get(i).getEndI();
+            if (currentStart <= end) {
+                end = (char) Math.max(currentEnd, end);
             } else {
                 mergedIntervals.add(new CharInterval(start, end));
                 start = currentStart;
                 end = currentEnd;
             }
-            index++;
         }
         mergedIntervals.add(new CharInterval(start, end));
         return mergedIntervals;

@@ -44,6 +44,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<String> handleEmptyBodyException(HttpMessageNotReadableException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IntervalNullValueDetected.class)
+    public ResponseEntity<String> handleIntervalNullValueDetected(IntervalNullValueDetected e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

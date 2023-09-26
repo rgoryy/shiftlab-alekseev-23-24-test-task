@@ -68,6 +68,9 @@ public class DigitInterval extends AbstractIntervalEntity<Integer> {
 
     @Override
     public String toString() {
-        return "[" + startI + ", "+ endI +"]";
+        return "DigitInterval{" +
+                "startI=" + startI +
+                ", endI=" + endI +
+                '}';
     }
 }

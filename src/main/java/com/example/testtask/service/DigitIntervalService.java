@@ -35,16 +35,13 @@ public class DigitIntervalService implements IntervalService<Integer, DigitInter
     public List<DigitInterval> mergeIntervals(List<DigitInterval> intervals) {
         List<DigitInterval> mergedIntervals = new ArrayList<>();
         sortIntervalsByStartValue(intervals);
-        for (DigitInterval i: intervals) {
-            System.out.println(i);
-        }
         int start = intervals.get(0).getStartI();
         int end = intervals.get(0).getEndI();
         for (int i = 1; i < intervals.size(); i++) {
             int currentStart = intervals.get(i).getStartI();
             int currentEnd = intervals.get(i).getEndI();
             if (currentStart <= end) {
-                end = currentEnd;
+                end = Math.max(end, currentEnd);
             } else {
                 mergedIntervals.add(new DigitInterval(start, end));
                 start = currentStart;

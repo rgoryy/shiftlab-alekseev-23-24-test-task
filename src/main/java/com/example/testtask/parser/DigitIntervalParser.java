@@ -1,6 +1,7 @@
 package com.example.testtask.parser;
 
 import com.example.testtask.entity.DigitInterval;
+import com.example.testtask.exception.IntervalNullValueDetected;
 import com.example.testtask.exception.WrongArrayListElementLengthException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,6 +26,8 @@ public class DigitIntervalParser {
         List<DigitInterval> intervals = new ArrayList<>();
         for (ArrayList<Integer> interval : intervalsList) {
             if (interval.size() == 2) {
+                if (interval.get(0) == null || interval.get(1) == null)
+                    throw new IntervalNullValueDetected();
                 intervals.add(new DigitInterval(interval));
             }
             else

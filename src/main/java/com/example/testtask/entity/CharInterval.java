@@ -67,6 +67,9 @@ public class CharInterval extends AbstractIntervalEntity<Character> {
 
     @Override
     public String toString() {
-        return "[" + startI + ", "+ endI +"]";
+        return "CharInterval{" +
+                "startI=" + startI +
+                ", endI=" + endI +
+                '}';
     }
 }

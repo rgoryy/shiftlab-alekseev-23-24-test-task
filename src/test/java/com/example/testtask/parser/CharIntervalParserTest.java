@@ -37,16 +37,22 @@ public class CharIntervalParserTest {
         String notCorrectLineContainsThreeElements = "[[\"a\", \"b\", \"c\"]]";
         Assertions.assertThrows(WrongArrayListElementLengthException.class, () -> charIntervalParser.
                 parseIntervals(notCorrectLineContainsThreeElements));
+        String notCorrectLineContainsOneElement = "[[\"a\"]]";
+        Assertions.assertThrows(WrongArrayListElementLengthException.class, () -> charIntervalParser.
+                parseIntervals(notCorrectLineContainsOneElement));
     }
 
     @Test
-    public void parseIntervalsTest_lineContainsDigits_throwsException() {
+    public void parseIntervalsTest_lineContainsIncludesNotLetterSymbols_throwsException() {
         String notCorrectLineContainsDigits = "[[1, 2]]";
-        Assertions.assertThrows(NotLetterException.class, () -> charIntervalParser.
+        Assertions.assertThrows(JsonSyntaxException.class, () -> charIntervalParser.
                 parseIntervals(notCorrectLineContainsDigits));
         String notCorrectLineContainsDigitAndChar = "[[1, (]]";
-        Assertions.assertThrows(NotLetterException.class, () -> charIntervalParser.
+        Assertions.assertThrows(JsonSyntaxException.class, () -> charIntervalParser.
                 parseIntervals(notCorrectLineContainsDigitAndChar));
+        String notCorrectLineContainsLetterAndNotLetterSymbol = "[[\"a\", \"string\"]]";
+        Assertions.assertThrows(JsonSyntaxException.class, () -> charIntervalParser.
+                parseIntervals(notCorrectLineContainsLetterAndNotLetterSymbol));
     }
 
     @Test
