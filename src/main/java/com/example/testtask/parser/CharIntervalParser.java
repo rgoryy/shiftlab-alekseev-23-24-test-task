@@ -27,15 +27,6 @@ public class CharIntervalParser {
             }
             else
                 throw new WrongArrayListElementLengthException();
-
-            boolean isValid = true;
-            for (Character character : interval) {
-                if (!Character.isLetter(character) || !Character.isLowerCase(character)) {
-                    isValid = false;
-                    break;
-                }
-            }
-
         }
         return intervals;
     }
